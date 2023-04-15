@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+interface User {
+  id: number;
+  username: string;
 }
 
-export default App
+type fibFunc = (n: number) => number;
+
+const fib: fibFunc = (n) => {
+  if (n < 2) return n;
+  return fib(n - 1) + fib(n - 2);
+};
+
+const myNum: number = 10;
+
+function App() {
+  const [count, setCount] = useState<number>(0);
+  const [users, setUsers] = useState<User[] | null>(null);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  console.log(inputRef?.current?.value);
+
+  useEffect(() => {
+    console.log("USERS: ", users);
+
+    return () => {
+      console.log("goodbye");
+    };
+  }, [users]);
+
+  const result = useMemo(() => fib(myNum), [myNum]);
+
+  const addTwo = useCallback((): void => setCount((prev) => prev + 2), []);
+
+  return (
+    <div>
+      <h1>{count}</h1>
+      <h3>{result}</h3>
+      <input type="text" ref={inputRef} />
+      <button onClick={addTwo}>ADD</button>
+    </div>
+  );
+}
+
+export default App;
