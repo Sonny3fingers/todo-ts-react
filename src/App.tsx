@@ -1,11 +1,11 @@
-import { useReducer } from "react";
+import { CounterProvider, initState } from "./context/CounterContext";
 import Counter from "./components/Counter";
 
 function App() {
   return (
-    <div>
+    <CounterProvider count={initState.count} text={initState.text}>
       <Counter />
-    </div>
+    </CounterProvider>
   );
 }
 
