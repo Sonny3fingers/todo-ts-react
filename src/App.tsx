@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Form from "./components/Form";
 import List from "./components/List";
@@ -12,12 +12,24 @@ export interface DataItem {
 function App() {
   const [data, setData] = useState<DataItem[]>([]);
 
+  useEffect(() => {
+    const savedData = localStorage.getItem("data");
+    if (savedData) {
+      setData(JSON.parse(savedData));
+    }
+  }, []);
+
   const addItemHandler = (newItem: DataItem) => {
     setData([...data, newItem]);
+    localStorage.setItem("data", JSON.stringify([...data, newItem]));
   };
 
   const itemDeleteHandler = (id: string) => {
     setData(data.filter((item) => item.id !== id));
+    localStorage.setItem(
+      "data",
+      JSON.stringify(data.filter((item) => item.id !== id))
+    );
   };
 
   const clearItemsHandler = () => {
@@ -29,6 +41,7 @@ function App() {
     if (itemToUpdate) {
       itemToUpdate.checked = !itemToUpdate.checked;
       setData([...data]);
+      localStorage.setItem("data", JSON.stringify([...data]));
     }
   };
 

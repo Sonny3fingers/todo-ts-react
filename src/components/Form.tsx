@@ -13,7 +13,11 @@ const Form = ({ onAddItem }: FormProps) => {
   });
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewItem({ ...newItem, text: e.target.value, id: crypto.randomUUID() });
+    setNewItem({
+      checked: false,
+      text: e.target.value,
+      id: crypto.randomUUID(),
+    });
   };
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
