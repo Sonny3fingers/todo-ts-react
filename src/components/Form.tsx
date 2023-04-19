@@ -1,28 +1,24 @@
 import React, { ChangeEvent, useState, FormEvent } from "react";
+import { DataItem } from "../App";
 
 type FormProps = {
   onAddItem: (newItem: DataItem) => void;
 };
 
-interface DataItem {
-  text: string;
-  checked: boolean;
-}
-
 const Form = ({ onAddItem }: FormProps) => {
   const [newItem, setNewItem] = useState<DataItem>({
+    id: "",
     text: "",
     checked: false,
   });
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewItem({ ...newItem, text: e.target.value });
+    setNewItem({ ...newItem, text: e.target.value, id: crypto.randomUUID() });
   };
 
   const submitHandler = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     onAddItem(newItem);
-    console.log(newItem);
   };
 
   return (

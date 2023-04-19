@@ -1,21 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import ListItem from "./ListItem";
 import { DataItem } from "../App";
 
 type ListProps = {
   data: DataItem[];
+  itemDeleteHandler: (id: string) => void;
+  onClearItems: () => void;
+  changeCheckboxHandler: (id: string) => void;
 };
 
-const List = ({ data }: ListProps) => {
+const List = ({
+  data,
+  itemDeleteHandler,
+  onClearItems,
+  changeCheckboxHandler,
+}: ListProps) => {
   return (
     <div className="list">
       <div className="listHeader">
         <h2>List</h2>
-        <button>Clear</button>
+        <button onClick={onClearItems}>Clear</button>
       </div>
       <ul>
         {data.map((item: DataItem, index: number) => (
-          <ListItem key={index} item={item} />
+          <ListItem
+            key={index}
+            {...item}
+            index={index}
+            itemDeleteHandler={itemDeleteHandler}
+            changeCheckboxHandler={changeCheckboxHandler}
+          />
         ))}
       </ul>
     </div>

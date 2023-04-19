@@ -113,6 +113,7 @@ input {
 .list ul li input {
   width: 2rem;
   height: 2rem;
+  cursor: pointer;
 }
 
 .list ul li span {

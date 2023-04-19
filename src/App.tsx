@@ -4,6 +4,7 @@ import Form from "./components/Form";
 import List from "./components/List";
 
 export interface DataItem {
+  id: string;
   text: string;
   checked: boolean;
 }
@@ -15,13 +16,32 @@ function App() {
     setData([...data, newItem]);
   };
 
-  console.log(data);
+  const itemDeleteHandler = (id: string) => {
+    setData(data.filter((item) => item.id !== id));
+  };
+
+  const clearItemsHandler = () => {
+    setData([]);
+  };
+
+  const changeCheckboxHandler = (id: string) => {
+    const itemToUpdate = data.find((item) => item.id === id);
+    if (itemToUpdate) {
+      itemToUpdate.checked = !itemToUpdate.checked;
+      setData([...data]);
+    }
+  };
 
   return (
     <main>
       <Header />
       <Form onAddItem={addItemHandler} />
-      <List data={data} />
+      <List
+        data={data}
+        itemDeleteHandler={itemDeleteHandler}
+        onClearItems={clearItemsHandler}
+        changeCheckboxHandler={changeCheckboxHandler}
+      />
     </main>
   );
 }

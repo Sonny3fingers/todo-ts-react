@@ -1,23 +1,39 @@
-import React from "react";
-import { DataItem } from "../App";
+import React, { ChangeEvent, useState } from "react";
 
 interface ListItemProps {
-  data: DataItem;
+  index: number;
+  id: string;
+  text: string;
+  checked: boolean;
+  itemDeleteHandler: (id: string) => void;
+  changeCheckboxHandler: (id: string) => void;
 }
 
-const ListItem = ({ item }: ListItemProps) => {
-  const changeCheckboxInputHandler = () => {
-    console.log("hello");
+const ListItem = ({
+  id,
+  text,
+  checked,
+  itemDeleteHandler,
+  index,
+  changeCheckboxHandler,
+}: ListItemProps) => {
+  const onDelete = () => {
+    itemDeleteHandler(id);
   };
+
+  const changeCheckedHandler = () => {
+    changeCheckboxHandler(id);
+  };
+
   return (
-    <li>
+    <li id={id}>
       <input
         type="checkbox"
-        checked={item.checked}
-        onChange={changeCheckboxInputHandler}
+        onChange={changeCheckedHandler}
+        checked={checked}
       />
-      <span>{item.text}</span>
-      <button>X</button>
+      <span>{text}</span>
+      <button onClick={onDelete}>X</button>
     </li>
   );
 };
