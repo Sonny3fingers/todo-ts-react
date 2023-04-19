@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import ListItem from "./ListItem";
 import { DataItem } from "../App";
 
@@ -26,7 +25,6 @@ const List = ({
           <ListItem
             key={index}
             {...item}
-            index={index}
             itemDeleteHandler={itemDeleteHandler}
             changeCheckboxHandler={changeCheckboxHandler}
           />

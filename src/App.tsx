@@ -34,6 +34,7 @@ function App() {
 
   const clearItemsHandler = () => {
     setData([]);
+    localStorage.clear();
   };
 
   const changeCheckboxHandler = (id: string) => {

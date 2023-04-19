@@ -1,7 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
-
 interface ListItemProps {
-  index: number;
   id: string;
   text: string;
   checked: boolean;
@@ -14,7 +11,6 @@ const ListItem = ({
   text,
   checked,
   itemDeleteHandler,
-  index,
   changeCheckboxHandler,
 }: ListItemProps) => {
   const onDelete = () => {
